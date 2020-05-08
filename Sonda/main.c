@@ -15,7 +15,8 @@ void mover_sonda(int ** plato,struct Sonda * sonda,char direcao,int espacos,int 
 int ** gerar_obstaculos();
 
 
-int main(void){
+int main(void)
+{
 	srand(time(0));
 	
 	struct Sonda sonda;
@@ -27,7 +28,7 @@ int main(void){
 	int **plato = malloc(sizeof(int*) * 10);
 	int i;
 	for(i = 0; i < 10;i++)
-		plato[i] = (int* )malloc(sizeof(int) * 20);
+		plato[i] = (int * )malloc(sizeof(int) * 20);
 	
 	preencher_plato(plato);
 	
@@ -58,7 +59,7 @@ int main(void){
 
 void mover_sonda(int ** plato,struct Sonda * sonda,char direcao,int espacos,int ** obstaculos)
 {
-	int i,dirx,diry,chance,tempx,tempy;
+	int i,dirx,diry,tempx,tempy;
 	dirx = 0;
 	diry = 0;
 	
@@ -86,9 +87,10 @@ void mover_sonda(int ** plato,struct Sonda * sonda,char direcao,int espacos,int 
 	{	
 		
 		sonda->linha += dirx;
+	
 		sonda->coluna += diry;
 		
-		if(sonda->linha > 10 || sonda->linha  < 0 || sonda->coluna  > 19 || sonda->coluna < 0 )
+		if(sonda->linha > 9 || sonda->linha  < 0 || sonda->coluna > 19 || sonda->coluna < 0 )
 		{
 			sonda->linha = tempx;
 			sonda->coluna = tempy;
@@ -107,12 +109,13 @@ void mover_sonda(int ** plato,struct Sonda * sonda,char direcao,int espacos,int 
 			printf("FAILED");
 			break;	
 		}
-				
-		plato[sonda->linha][sonda->coluna] = 1;
-		
-		tempx = sonda->linha;
-		tempy = sonda->coluna;
 			
+		plato[sonda->linha][sonda->coluna] = 1;
+	
+		tempx = sonda->linha;
+	
+		tempy = sonda->coluna;
+		
 		if(i == espacos)
 		{
 			printf("SUCESS");		
@@ -123,10 +126,12 @@ void mover_sonda(int ** plato,struct Sonda * sonda,char direcao,int espacos,int 
 
 int ** gerar_obstaculos()
 {
+	
+		
 	int i;
 	
 	int ** obstaculos = malloc(sizeof(int*)*10);
-	for(i = 0; i < 9; i++)
+	for(i = 0; i < 10; i++)
 		obstaculos[i] = malloc(sizeof(int)*20);
 	
 	
@@ -140,7 +145,7 @@ int ** gerar_obstaculos()
 			continue;
 		}
 		
-		obstaculos[x][y] = 0;
+		obstaculos[x][y] = 2;
 		
 	}
 	return obstaculos;
@@ -187,11 +192,9 @@ void print_plato(int **plato,struct Sonda sonda)
 			else
 			{
 				printf("# ");
-			}
-				
+			}			
 		}	
-	}
-					
+	}					
 }
 
 
